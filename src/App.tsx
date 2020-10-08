@@ -1,5 +1,5 @@
 import React from 'react'
-import Dashboard from './pages/Dashboard'
+import Layout from './components/Layout'
 import GlobalStyles from './styles/GlobalStyles'
 
 // import { Container } from './styles';
@@ -8,7 +8,7 @@ const App: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      <Dashboard />
+      <Layout />
     </>
   )
 }
