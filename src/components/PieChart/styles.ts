@@ -25,7 +25,11 @@ export const SideLeft = styled.aside`
     margin-bottom: 20px;
   }
 `
-export const SideRight = styled.div``
+export const SideRight = styled.main`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`
 export const Legend = styled.li<ILegendProps>`
   display: flex;
   align-items: center;
