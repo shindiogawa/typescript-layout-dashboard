@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 const AppRoutes: React.FC = () => (
   <Layout>
     <Switch>
-      <Route path="/dashboard" exact component={Dashboard} />
+      <Route path="/" exact component={Dashboard} />
       <Route path="/list/:movementType" exact component={List} />
     </Switch>
   </Layout>
