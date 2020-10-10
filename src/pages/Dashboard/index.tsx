@@ -5,6 +5,7 @@ import { Container, Content } from './styles'
 import happyImg from '../../assets/happy.svg'
 import sadImg from '../../assets/sad.svg'
 import grinningImg from '../../assets/grinning.svg'
+import winkingImg from '../../assets/winking-face.svg'
 import expenses from '../../repositories/expenses'
 import gains from '../../repositories/gains'
 import listOfMonths from '../../utils/months'
@@ -128,8 +129,15 @@ const Dashboard: React.FC = () => {
   const relationExpensesVersusGains = useMemo(() => {
     const total = totalGains + totalExpenses
 
-    const percentGains = (totalGains / total) * 100
-    const percentExpenses = (totalExpenses / total) * 100
+    let percentGains: number
+    let percentExpenses: number
+    if (total != 0) {
+      percentGains = (totalGains / total) * 100
+      percentExpenses = (totalExpenses / total) * 100
+    } else {
+      percentGains = 0
+      percentExpenses = 0
+    }
 
     const data = [
       {
@@ -148,6 +156,18 @@ const Dashboard: React.FC = () => {
 
     return data
   }, [totalGains, totalExpenses])
+
+  const isValueEmpty = useMemo(() => {
+    let isEmpty = false
+    relationExpensesVersusGains.map(item => {
+      if (item.value === 0) {
+        isEmpty = true
+      } else {
+        isEmpty = false
+      }
+    })
+    return isEmpty
+  }, [relationExpensesVersusGains])
 
   const historyData = useMemo(() => {
     return listOfMonths
@@ -264,8 +284,16 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
-
-        <PieChart data={relationExpensesVersusGains} />
+        {isValueEmpty ? (
+          <MessageBox
+            title="Que estranho"
+            description="Neste mês não foi realizada nenhuma movimentação"
+            footerText="Faça compras ou deposite dinheiro para a análise"
+            icon={winkingImg}
+          />
+        ) : (
+          <PieChart data={relationExpensesVersusGains} />
+        )}
 
         <HistoryBox
           data={historyData}
